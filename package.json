@@ -4,16 +4,24 @@
   "description": "Write a zip archive to the Origin Private File System.",
   "scripts": {
     "clean": "rm -rf build",
-    "build": "tsc",
+    "copy-worker": "cp node_modules/libarchive.js/dist/worker-bundle.js build/worker-bundle.js",
+    "copy-wasm": "mkdir -p build/wasm-gen && cp node_modules/libarchive.js/dist/wasm-gen/* build/wasm-gen",
+    "build": "npm run copy-worker && rollup -c rollup.config.js",
     "dev": "npm run clean && tsc --watch"
   },
   "author": "Tyler Gross",
   "license": "MIT",
+  "type": "module",
   "dependencies": {
     "libarchive.js": "^1.3.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.5",
     "@types/libarchive.js": "^1.3.4",
+    "rollup": "^4.9.0",
+    "tslib": "^2.6.2",
     "typescript": "^5.3.3"
   }
 }
