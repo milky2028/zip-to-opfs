@@ -6,8 +6,9 @@
     "clean": "rm -rf build",
     "copy-worker": "cp node_modules/libarchive.js/dist/worker-bundle.js build/worker-bundle.js",
     "copy-wasm": "mkdir -p build/wasm-gen && cp node_modules/libarchive.js/dist/wasm-gen/* build/wasm-gen",
-    "build": "npm run copy-worker && rollup -c rollup.config.js",
-    "dev": "npm run clean && tsc --watch"
+    "setup": "npm run clean && npm run copy-wasm && npm run copy-worker",
+    "build": "npm run setup && rollup -c rollup.config.js",
+    "dev": "npm run setup && rollup --watch -c rollup.config.js"
   },
   "author": "Tyler Gross",
   "license": "MIT",
