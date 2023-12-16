@@ -1,0 +1,19 @@
+{
+  "name": "zip-to-opfs",
+  "version": "1.0.0",
+  "description": "Write a zip archive to the Origin Private File System.",
+  "scripts": {
+    "clean": "rm -rf build",
+    "build": "tsc",
+    "dev": "npm run clean && tsc --watch"
+  },
+  "author": "Tyler Gross",
+  "license": "MIT",
+  "dependencies": {
+    "libarchive.js": "^1.3.0"
+  },
+  "devDependencies": {
+    "@types/libarchive.js": "^1.3.4",
+    "typescript": "^5.3.3"
+  }
+}
