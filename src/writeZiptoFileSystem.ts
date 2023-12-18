@@ -10,7 +10,7 @@ function isSystemFile(directoryName: string) {
   return /__MACOSX|.DS_Store/i.test(directoryName);
 }
 
-export async function writeZipToFilesystem(files: File[], path?: string) {
+export async function writeZipToFileSystem(files: File[], path?: string) {
   const archiveWrites = files.map(async (file) => {
     const { Archive } = await import("libarchive.js");
     Archive.init({ workerUrl: "/build/worker-bundle.js" });
