@@ -8,12 +8,13 @@
   <body>
     <input type="file" accept=".zip,application/zip,application/x-zip-compressed,multipart/x-zip" />
     <script type="module">
-      import { writeZipToFilesystem, getFiles } from "./build/writeZipToFileSystem.js";
+      import { writeZipToFileSystem, getFiles } from "./build/writeZipToFileSystem.js";
 
       const input = document.querySelector("input");
-      input.addEventListener("change", (event) => {
+      input.addEventListener("change", async (event) => {
         const files = getFiles(event);
-        writeZipToFilesystem(files);
+        await writeZipToFileSystem(files);
+        console.log("wrote zip to filesystem");
       });
     </script>
   </body>

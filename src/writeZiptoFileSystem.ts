@@ -1,5 +1,5 @@
-import { getFileHandle } from "./filesystem/getFileHandle";
 import { writeFile } from "./filesystem/writeFile";
+import { wipeFileSystem } from "./filesystem/wipeFileSystem";
 
 export function getFiles(event: DragEvent | (Event & { currentTarget: HTMLInputElement })) {
   const files = event instanceof DragEvent ? event.dataTransfer?.files : event.currentTarget.files;
@@ -15,9 +15,7 @@ export async function writeZipToFileSystem(files: File[], path?: string) {
     const { Archive } = await import("libarchive.js");
     Archive.init({ workerUrl: "/build/worker-bundle.js" });
 
-    const zipArchive = await Archive.open(file);
-    const fileStructure = await zipArchive.getFilesObject();
-
+    const [, zipArchive] = await Promise.all([wipeFileSystem(), Archive.open(file)]);
     zipArchive.extractFiles(async (entry) => {
       if (!isSystemFile(entry.path)) {
         await writeFile(`${path ?? ""}/${entry.path}`, entry.file);
