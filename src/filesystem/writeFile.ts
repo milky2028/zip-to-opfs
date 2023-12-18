@@ -1,4 +1,4 @@
-import { getFileHandle } from "./getFileHandle";
+import { getHandle } from "./getHandle";
 
 type WriteEvent = MessageEvent<{ path: string; file: File; id: string }>;
 
@@ -46,7 +46,7 @@ type WriteResponseEvent = MessageEvent<{ returnVal: "completed" | "failed" | str
 let worker: Worker | undefined;
 
 export async function writeFile(path: string, file: File) {
-  const fileHandle = await getFileHandle(path, { create: true });
+  const fileHandle = await getHandle(path, { create: true, type: "file" });
   if ("createWritable" in fileHandle) {
     const writer = await fileHandle.createWritable();
     return file.stream().pipeTo(writer);
